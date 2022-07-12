@@ -3,12 +3,12 @@ FROM golang:alpine as builder
 LABEL maintainer="erguotou525@gmail.compute"
 
 RUN apk --no-cache add git libc-dev gcc
-RUN go get github.com/mjibson/esc
+RUN go install github.com/mjibson/esc:v0.2.0
 
 COPY . /go/src/github.com/mailslurper/mailslurper
 WORKDIR /go/src/github.com/mailslurper/mailslurper/cmd/mailslurper
 
-RUN go get
+RUN go mod tidy
 RUN go generate
 RUN go build
 
